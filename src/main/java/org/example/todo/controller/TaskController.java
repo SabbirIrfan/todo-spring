@@ -20,11 +20,29 @@ public class TaskController {
     @PostMapping(value = "addTask")
     public ModelAndView addTask(@ModelAttribute Task task){
 
-        ModelAndView modelAndView = new ModelAndView("home");
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
        modelAndView.addObject("tasks" , taskService.getAllTasks());
         task.setCreatedAt(LocalDateTime.now());
         taskService.addTasks(task);
 
+        return modelAndView;
+
+    }
+    @PostMapping(value = "editTask")
+    public ModelAndView editTask(Long id){
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+
+
+        return modelAndView;
+
+    }
+    @PostMapping(value = "deleteTask")
+    public ModelAndView deleteTask(Long taskId){
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        System.out.println(taskId);
+        taskService.deleteTask(taskId);
         return modelAndView;
 
     }
