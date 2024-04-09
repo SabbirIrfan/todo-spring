@@ -36,4 +36,15 @@ public class Task {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                ", title='" + title + '\'' +
+                ", details='" + details + '\'' +
+                ", isCompleted=" + isCompleted +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

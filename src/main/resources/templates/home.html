@@ -22,14 +22,14 @@
         </div>
     </div>
     <div th:include="script.html"></div>
-    <div class="row" id="taskContainer">
+    <div class="row" id="taskContainer" style="background-color: #f7f7f3; min-height: 90vh ">
         <!-- Tasks will be dynamically added here -->
         <div class="col-md-4" th:each="task : ${tasks}">
-            <div class="card">
+            <div class="card" style="margin-top: 1rem">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${task.getTitle()}">Task Title</h5>
                     <h5 class="card-title" th:text="${task.getDetails()}">Details</h5>
-                    <form id="editTaskForm" th:action="@{/editTask}" method="post">
+                    <form id="editTaskForm" th:action="@{/editTask}" method="get">
                         <label>
                             <input hidden="hidden" th:value="${task.getId()}" th:name="taskId">
                         </label>
