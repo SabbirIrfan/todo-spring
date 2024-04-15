@@ -1,2 +1,4 @@
 databaseChangeLog:
-  - 
+  - include:
+      file: classpath:/db/changelog/create_table_todos.yaml
+      relativeToChangelogFile: false

@@ -27,21 +27,28 @@
         <div class="col-md-4" th:each="task : ${tasks}">
             <div class="card" style="margin-top: 1rem">
                 <div class="card-body">
+
+                    <div style="font-family: 'Abyssinica SIL'">
                     <h5 class="card-title" th:text="${task.getTitle()}">Task Title</h5>
+                    </div>
+                    <div style="font-family: 'Abyssinica SIL' ; background-color: #f0f0e4 ; border-radius: 10% ; padding: 1rem; margin-bottom: 1rem">
                     <h5 class="card-title" th:text="${task.getDetails()}">Details</h5>
-                    <form id="editTaskForm" th:action="@{/editTask}" method="get">
-                        <label>
-                            <input hidden="hidden" th:value="${task.getId()}" th:name="taskId">
-                        </label>
-                        <button class="btn btn-secondary btn-sm float-right">Edit</button>
-                    </form>
-                    <form id="deleteTaskForm" th:action="@{/deleteTask}" method="post">
-                        <label>
-                            <input hidden="hidden" th:value="${task?.getId()}" th:name="taskId">
-                        </label>
-<!--                        <h1 th:text="${task.getId()}"> </h1>-->
-                        <button class="btn btn-danger btn-sm float-right mr-2">Delete</button>
-                    </form>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: stretch">
+                        <form id="editTaskForm" th:action="@{/editTask}" method="get">
+                            <label>
+                                <input hidden="hidden" th:value="${task.getId()}" th:name="taskId">
+                            </label>
+                            <button class="btn btn-secondary btn-sm float-right">Edit</button>
+                        </form>
+                        <form id="deleteTaskForm" th:action="@{/deleteTask}" method="post">
+                            <label>
+                                <input hidden="hidden" th:value="${task?.getId()}" th:name="taskId">
+                            </label>
+                            <!--                        <h1 th:text="${task.getId()}"> </h1>-->
+                            <button class="btn btn-danger btn-sm float-right mr-2">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
