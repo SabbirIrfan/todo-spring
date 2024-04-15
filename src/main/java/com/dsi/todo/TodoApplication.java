@@ -1,4 +1,4 @@
-package org.example.todo;
+package com.dsi.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

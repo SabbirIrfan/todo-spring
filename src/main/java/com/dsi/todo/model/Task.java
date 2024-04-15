@@ -1,4 +1,4 @@
-package org.example.todo.model;
+package com.dsi.todo.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

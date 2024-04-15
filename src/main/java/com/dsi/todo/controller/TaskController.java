@@ -1,21 +1,14 @@
-package org.example.todo.controller;
+package com.dsi.todo.controller;
 
-import jakarta.validation.Valid;
-import org.apache.logging.log4j.message.Message;
-import org.example.todo.model.Task;
-import org.example.todo.service.TaskService;
+import com.dsi.todo.model.Task;
+import com.dsi.todo.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Objects;
 
 @Controller
 public class TaskController {
@@ -27,7 +20,7 @@ public class TaskController {
     }
 
     @PostMapping(value = "addTask")
-    public ModelAndView addTask(@ModelAttribute Task task, BindingResult result) {
+    public ModelAndView addTask(@ModelAttribute Task task) {
 
 
         ModelAndView modelAndView = new ModelAndView("redirect:/");
@@ -37,12 +30,22 @@ public class TaskController {
         return modelAndView;
     }
 
+    @PostMapping(value = "markComplete")
+    public ModelAndView markComplete(Long taskId) {
+        System.out.println(taskId);
+        ModelAndView modelAndView = new ModelAndView("redirect:/");
+        Task task = taskService.getTask(taskId);
+        task.setIsCompleted(!task.getIsCompleted());
+        taskService.updateTask(task);
+        return modelAndView;
+
+    }
+
     @GetMapping(value = "editTask")
     public ModelAndView editTask(Long taskId) {
         ModelAndView modelAndView = new ModelAndView("editTaskForm");
         Task task = taskService.getTask(taskId);
-
-        modelAndView.addObject("task",task);
+        modelAndView.addObject("task", task);
         return modelAndView;
     }
 

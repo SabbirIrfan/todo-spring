@@ -1,7 +1,6 @@
-package org.example.todo.controller;
+package com.dsi.todo.controller;
 
-import org.example.todo.model.Task;
-import org.example.todo.service.TaskService;
+import com.dsi.todo.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

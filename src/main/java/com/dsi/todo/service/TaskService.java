@@ -1,7 +1,7 @@
-package org.example.todo.service;
+package com.dsi.todo.service;
 
-import org.example.todo.model.Task;
-import org.example.todo.repository.TaskRepo;
+import com.dsi.todo.model.Task;
+import com.dsi.todo.repository.TaskRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,9 +35,8 @@ public class TaskService {
         Task existingTask = taskRepo.findById(updatedTask.getId()).orElse(null);
 
         if (existingTask != null) {
-            existingTask.setTitle(updatedTask.getTitle());
-            existingTask.setDetails(updatedTask.getDetails());
-            taskRepo.save(existingTask);
+            updatedTask.setCreatedAt(existingTask.getCreatedAt());
+            taskRepo.save(updatedTask);
         } else {
             System.out.println("task not found");
             throw new IllegalArgumentException("Task not found with ID: " + updatedTask.getId());
