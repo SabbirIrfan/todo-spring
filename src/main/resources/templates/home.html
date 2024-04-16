@@ -25,12 +25,13 @@
         <!-- Tasks will be dynamically added here -->
         <div class="col-md-4" th:each="task : ${tasks}">
             <div class="card" style="margin-top: 1rem">
-                <div th:class="${task.isCompleted? 'bg-success card-body' : 'bg-secondary card-body'}">
+                <div th:class="${task.isCompleted? 'bg-info card-body ' : 'bg-light card-body'}">
 
-                    <div style="font-family: 'Abyssinica SIL'" >
+                    <div style="font-family: 'Abyssinica SIL'">
                         <h5 class="card-title" th:text="${task.getTitle()}">Task Title</h5>
                     </div>
-                    <div class="rounded" style="font-family: 'Abyssinica SIL' ; background-color: #f0f0e4; padding: 1rem; margin-bottom: 1rem">
+                    <div class="rounded"
+                         style="font-family: 'Abyssinica SIL' ; background-color: #f0f0e4; padding: 1rem; margin-bottom: 1rem">
                         <h5 class="card-title" th:text="${task.getDetails()}">Details</h5>
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: stretch">
@@ -44,16 +45,17 @@
                             <label>
                                 <input hidden="hidden" th:value="${task?.getId()}" th:name="taskId">
                             </label>
-                            <button class="btn btn-danger btn-sm float-right mr-2">Delete</button>
+                            <button class="btn btn-danger btn-sm mr-2">Delete</button>
 
                         </form>
                         <form id="markComplete" th:action="@{/markComplete}" method="post">
-<!--                            <label for="completedYes"> Completed</label>-->
+                            <!--                            <label for="completedYes"> Completed</label>-->
                             <label>
                                 <input type="number" id="markngID" hidden="hidden" name="taskId" th:value="${task.id}">
                             </label>
-<!--                            <button th:type="submit" id="completedYes" name="completed" value="true" ></button>-->
-                            <button th:class="${task.isCompleted}? 'btn btn-sm btn-success' : 'btn btn-sm btn-secondary'" th:type="submit" th:text="${task.isCompleted? 'Completed' : 'Pending'}"></button>
+                            <!--                            <button th:type="submit" id="completedYes" name="completed" value="true" ></button>-->
+                            <button th:class="${task.isCompleted}? 'btn btn-sm  btn-success' : 'btn btn-sm  btn-secondary'"
+                                    th:type="submit" th:text="${task.isCompleted? 'Completed' : 'Pending'}"></button>
                         </form>
                     </div>
                 </div>
@@ -74,7 +76,20 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div th:include="addTaskModel"></div>
+            <!--            <div th:include="addTaskModel"></div>-->
+            <div class="modal-body">
+                <form id="addTaskForm" th:action="@{/addTask}" th:method="post">
+                    <div class="form-group">
+                        <label for="taskTitle">Title</label>
+                        <input type="text" class="form-control" id="taskTitle" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDetails">Details</label>
+                        <textarea class="form-control" id="taskDetails" name="details" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -86,7 +101,7 @@
 <script>
     function submitForm(id) {
         console.log("some6hing")
-        document.getElementById("markngID").value=id;
+        document.getElementById("markngID").value = id;
         document.getElementById("markComplete").submit();
     }
 </script>

@@ -1,0 +1,40 @@
+#  Ambiguous Mapping Error:: A request mapping is the same
+                    when it has the same HTTP method, URL, parameters, headers, and media type.
+
+@GetMapping(value = "foos/duplicate" )
+public String duplicate() {
+    return "Duplicate";
+}
+
+@GetMapping(value = "foos/duplicate" )
+public String duplicateEx() {
+    return "Duplicate";
+}
+
+Exceptions::
+Caused by: java.lang.IllegalStateException: Ambiguous mapping.
+  Cannot map 'fooMappingExamplesController' method
+  public java.lang.String org.baeldung.web.controller.FooMappingExamplesController.duplicateEx()
+  to {[/ex/foos/duplicate],methods=[GET]}:
+  There is already 'fooMappingExamplesController' bean method
+  public java.lang.String org.baeldung.web.controller.FooMappingExamplesController.duplicate() mapped.
+
+
+  #NOT AMBIGUOUS::
+  @GetMapping(value = "foos/duplicate", produces = MediaType.APPLICATION_XML_VALUE)
+  public String duplicateXml() {
+      return "<message>Duplicate</message>";
+  }
+
+  @GetMapping(value = "foos/duplicate", produces = MediaType.APPLICATION_JSON_VALUE)
+  public String duplicateJson() {
+      return "{\"message\":\"Duplicate\"}";
+  }
+
+
+  ## Basically, @ModelAttribute methods are invoked before the controller methods annotated with
+    @RequestMapping are invoked. This is because the model object has to be created before any processing\
+     starts inside the controller methods.
+
+
+  ## Global Model?? >> @ControllerAdvice

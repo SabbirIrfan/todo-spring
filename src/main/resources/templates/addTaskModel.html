@@ -6,10 +6,11 @@
 </head>
 <body>
 <div class="modal-body">
-    <form id="addTaskForm" th:action="@{/addTask}" method="post">
+    <form id="addTaskForm" th:action="@{/addTask}" method="post" >
         <div class="form-group">
             <label for="taskTitle">Title</label>
             <input type="text" class="form-control" id="taskTitle" name="title" required>
+
         </div>
         <div class="form-group">
             <label for="taskDetails">Details</label>

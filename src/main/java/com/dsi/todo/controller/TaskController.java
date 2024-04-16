@@ -2,6 +2,7 @@ package com.dsi.todo.controller;
 
 import com.dsi.todo.model.Task;
 import com.dsi.todo.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TaskController {
@@ -22,11 +24,10 @@ public class TaskController {
     @PostMapping(value = "addTask")
     public ModelAndView addTask(@ModelAttribute Task task) {
 
-
         ModelAndView modelAndView = new ModelAndView("redirect:/");
-        modelAndView.addObject("tasks", taskService.getAllTasks());
-//        task.setCreatedAt(LocalDateTime.now());
         taskService.addTasks(task);
+        modelAndView.addObject("tasks", taskService.getAllTasks());
+
         return modelAndView;
     }
 
@@ -44,14 +45,18 @@ public class TaskController {
     @GetMapping(value = "editTask")
     public ModelAndView editTask(Long taskId) {
         ModelAndView modelAndView = new ModelAndView("editTaskForm");
+
         Task task = taskService.getTask(taskId);
+
         modelAndView.addObject("task", task);
         return modelAndView;
     }
 
     @PostMapping(value = "editTask")
     public ModelAndView editTaskForm(@ModelAttribute Task task) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/");
         taskService.updateTask(task);
         return modelAndView;
     }
