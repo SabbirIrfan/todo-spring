@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_table_todos
+      author: Sabbir_Irfan
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: todos_pkey
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: details
+                  type: TEXT
+              - column:
+                  name: is_completed
+                  type: BOOLEAN
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+        - addAutoIncrement:
+            tableName: tasks
+            columnName: id
+            columnDataType: BIGINT
+            generationType: IDENTITY

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Task</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+  <h2>Edit Task</h2>
+  <form id="editTaskForm" th:action="@{/editTask}" method="post">
+    <div class="form-group">
+      <label for="taskTitle">Title</label>
+      <input type="text" class="form-control" id="taskTitle" name="title" th:value="${task.getTitle()}" required>
+      <p th:text="${title}" ></p>
+    </div>
+    <div class="form-group">
+      <label for="taskId">Title</label>
+      <input type="text" hidden="hidden" class="form-control" id="taskId" name="id" th:value="${task.getId()}" required>
+      <p th:text="${details}" ></p>
+    </div>
+    <div class="form-group">
+      <label for="taskDetails">Details</label>
+      <textarea class="form-control" id="taskDetails" name="details" required th:text="${task.getDetails()}"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+</div>
+
+<!-- Bootstrap JS and jQuery (you may include it at the end of the body) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
