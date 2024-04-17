@@ -23,10 +23,12 @@ public class Task {
 
     @NotBlank(message = "Title is required")
     @Column
+    @Size(min = 5, max = 25, message = "The title is too small or too big")
     private String title;
 
     @NotBlank(message = "Details are required")
     @Column
+//    @Size(min = 5, max = 2555, message = "The title is too small or too big")
     private String details;
 
     @Column(name = "is_completed")

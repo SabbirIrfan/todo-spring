@@ -53,11 +53,21 @@ public class TaskController {
     }
 
     @PostMapping(value = "editTask")
-    public ModelAndView editTaskForm(@ModelAttribute Task task) {
-
+    public ModelAndView editTaskForm(@Valid @ModelAttribute("task") Task task, BindingResult result) {
         ModelAndView modelAndView = new ModelAndView();
+
+        if (result.hasErrors()) {
+            modelAndView.setViewName("editTaskForm");
+            modelAndView.addObject("task", task);
+            modelAndView.addObject("errorTitle", result.getFieldError("title").getDefaultMessage().toString());
+//            modelAndView.addObject("errorDetails", result.getFieldError("details").getDefaultMessage().toString());
+            return modelAndView;
+        }
+
+        // If there are no validation errors, proceed with task update
         modelAndView.setViewName("redirect:/");
         taskService.updateTask(task);
+
         return modelAndView;
     }
 
