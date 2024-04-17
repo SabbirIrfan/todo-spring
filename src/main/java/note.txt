@@ -38,3 +38,8 @@ Caused by: java.lang.IllegalStateException: Ambiguous mapping.
 
 
   ## Global Model?? >> @ControllerAdvice
+
+
+  ##  The controller annotated with @RequestMapping can have custom class argument(s) annotated
+      with @ModelAttribute. In Spring MVC, we refer to this as data binding, a common mechanism that saves
+      us from having to parse each form field individually.
