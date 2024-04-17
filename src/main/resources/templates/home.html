@@ -16,7 +16,6 @@
 <body>
 <div class="container mt-4">
     <div th:include="nav.html"></div>
-    <div th:include="script.html"></div>
     <div class="row" id="taskContainer" style="background-color: #f7f7f3; min-height: 90vh ">
 
         <div class="col-md-4" th:each="task : ${tasks}">
@@ -49,7 +48,8 @@
                                 <input type="number" id="markngID" hidden="hidden" name="taskId" th:value="${task.id}">
                             </label>
                             <button th:class="${task.isCompleted}? 'btn btn-sm  btn-success' : 'btn btn-sm  btn-secondary'"
-                                    th:type="submit" th:text="${task.isCompleted? 'Completed' : 'Pending'}"></button>
+                                    th:type="submit" th:text="${task.isCompleted? 'Completed' : 'Pending'}"
+                                    th:onclick="submitForm([[${task.title}]])"></button>
                         </form>
                     </div>
                 </div>
@@ -79,10 +79,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    function submitForm(id) {
-        document.getElementById("markngID").value = id;
-        document.getElementById("markComplete").submit();
+<script th:inline="javascript">
+    function submitForm(title) {
+        alert(`status for task :: ${title} ::  is going to be changed!!`)
     }
 </script>
 </body>
