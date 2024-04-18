@@ -4,13 +4,13 @@ import com.dsi.todo.model.Task;
 import com.dsi.todo.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Objects;
 
 @Controller
 public class TaskController {
@@ -22,18 +22,23 @@ public class TaskController {
     }
 
     @PostMapping(value = "addTask")
-    public ModelAndView addTask(@ModelAttribute Task task) {
-
-        ModelAndView modelAndView = new ModelAndView("redirect:/");
-        taskService.addTasks(task);
-        modelAndView.addObject("tasks", taskService.getAllTasks());
-
+    public ModelAndView addTask(@Valid @ModelAttribute Task task, BindingResult result, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (result.hasErrors()) {
+            System.out.println(task);
+        modelAndView.addObject("valid_error", "the length of the title or the description of your task is not appropriate!");
+            modelAndView.setViewName("redirect:/");
+        }
+        else {
+            taskService.addTasks(task);
+            modelAndView.addObject("tasks", taskService.getAllTasks());
+            modelAndView.setViewName("redirect:/");
+        }
         return modelAndView;
     }
 
     @PostMapping(value = "markComplete")
     public ModelAndView markComplete(Long taskId) {
-        System.out.println(taskId);
         ModelAndView modelAndView = new ModelAndView("redirect:/");
         Task task = taskService.getTask(taskId);
         task.setIsCompleted(!task.getIsCompleted());
@@ -43,24 +48,25 @@ public class TaskController {
     }
 
     @GetMapping(value = "editTask")
-    public ModelAndView editTask(Long taskId) {
+    public ModelAndView editTask(Long taskId, Model model) {
         ModelAndView modelAndView = new ModelAndView("editTaskForm");
+        if(model.getAttribute("task") == null) {
+            Task task1 = taskService.getTask(taskId);
+            modelAndView.addObject("task", task1);
+        }
 
-        Task task = taskService.getTask(taskId);
-
-        modelAndView.addObject("task", task);
         return modelAndView;
     }
 
     @PostMapping(value = "editTask")
-    public ModelAndView editTaskForm(@Valid @ModelAttribute("task") Task task, BindingResult result) {
+    public ModelAndView editTaskForm(@Valid @ModelAttribute("task") Task task, BindingResult result, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println(task);
 
         if (result.hasErrors()) {
-            modelAndView.setViewName("editTaskForm");
-            modelAndView.addObject("task", task);
-            modelAndView.addObject("errorTitle", result.getFieldError("title").getDefaultMessage().toString());
-//            modelAndView.addObject("errorDetails", result.getFieldError("details").getDefaultMessage().toString());
+            redirectAttributes.addFlashAttribute(BindingResult.class.getName() + ".task", result);
+            redirectAttributes.addFlashAttribute("task", task);
+            modelAndView.setViewName("redirect:/editTask?taskId=" + task.getId());
             return modelAndView;
         }
 

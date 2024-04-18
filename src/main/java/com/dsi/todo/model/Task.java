@@ -28,7 +28,7 @@ public class Task {
 
     @NotBlank(message = "Details are required")
     @Column
-//    @Size(min = 5, max = 2555, message = "The title is too small or too big")
+    @Size(min = 5, max = 2555, message = "The title is too small or too big")
     private String details;
 
     @Column(name = "is_completed")
@@ -44,6 +44,13 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" + ", title='" + title + '\'' + ", details='" + details + '\'' + ", isCompleted=" + isCompleted + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", details='" + details + '\'' +
+                ", isCompleted=" + isCompleted +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

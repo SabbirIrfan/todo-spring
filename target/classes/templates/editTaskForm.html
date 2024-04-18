@@ -9,25 +9,26 @@
 <body>
 <div class="container mt-4">
     <h2>Edit Task</h2>
-    <form id="editTaskForm" th:action="@{/editTask}" method="post">
+    <form th:object="${task}" id="editTaskForm" th:action="@{/editTask}" method="post">
         <div class="form-group">
             <label for="taskTitle">Title</label>
             <input type="text" class="form-control" id="taskTitle" name="title" th:value="${task.getTitle()}" required>
-<!--            <small class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title is required</small>-->
-            <p class="is-invalid" th:if="${errorTitle}" th:text="${error}"></p>
+            <small class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">something wrong</small>
+<!--            <p class="text-danger" th:if="${errorTitle}" th:text="${errorTitle}"></p>-->
         </div>
         <div class="form-group">
             <label for="taskId">Title</label>
-            <input type="text" hidden="hidden" class="form-control" id="taskId" name="id" th:value="${task.getId()}"
-                   required>
+            <input type="number" hidden="hidden" class="form-control" id="taskId" name="id" th:value="${task.getId()}"
+                   readonly>
         </div>
         <div class="form-group">
             <label for="taskDetails">Details</label>
             <textarea class="form-control" id="taskDetails" name="details" required
                       th:text="${task.getDetails()}"></textarea>
 
-            <p class="is-invalid" th:if="${errorDetails}" th:text="${error}"></p>
-
+<!--            <p class="is-invalid" th:if="${errorDetails}" th:text="${errorDetails}"></p>-->
+<!--            <div th:if="${#fields.hasErrors('details')}"></div>-->
+            <small class="text-danger" th:if="${#fields.hasErrors('details')}" th:errors="*{details}">something wrong</small>
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>

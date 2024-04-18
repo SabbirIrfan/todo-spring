@@ -16,6 +16,7 @@
 <body>
 <div class="container mt-4">
     <div th:include="nav.html"></div>
+
     <div class="row" id="taskContainer" style="background-color: #f7f7f3; min-height: 90vh ">
 
         <div class="col-md-4" th:each="task : ${tasks}">
@@ -30,8 +31,7 @@
                         <h5 class="card-title" th:text="${task.getDetails()}">Details</h5>
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: stretch">
-                        <form id="editTaskForm" th:action="@{/editTask}" method="get">
-                            <label>
+                        <form id="editTaskForm" th:action="@{/editTask}" method="get">                            <label>
                                 <input hidden="hidden" th:value="${task.getId()}" th:name="taskId">
                             </label>
                             <button class="btn btn-secondary btn-sm float-right">Edit</button>
